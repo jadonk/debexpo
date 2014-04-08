@@ -156,7 +156,7 @@ class Email(object):
 
         if self.auth:
             log.debug('Authentication requested; logging in')
-            session.login(self.auth['user'], self.auth['password'])
+            session.login(self.auth['username'], self.auth['password'])
 
         log.debug('Sending email to %s' % ', '.join(recipients))
         result = session.sendmail(pylons.config['debexpo.email'], recipients, message)
