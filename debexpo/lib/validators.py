@@ -202,8 +202,8 @@ class NewNameToSystem(formencode.FancyValidator):
         return value
 
 def ValidateSponsorEmail(values, state, validator):
-    if values['sponsor'] == '1' and not values['email'].endswith('@debian.org'):
-          return {'sponsor': 'A sponsor account must be registered with your @debian.org address' }
+    if values['sponsor'] == '1' and not values['email'].endswith('@beagleboard.org'):
+          return {'sponsor': 'A sponsor account must be registered with your @beagleboard.org address' }
 
 class DummyValidator(formencode.FancyValidator):
     pass
