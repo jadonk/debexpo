@@ -81,7 +81,11 @@ class Email(object):
         self.template = template
         self.server = pylons.config['global_conf']['smtp_server']
         self.port = pylons.config['global_conf']['smtp_port']
+        self.ssl = pylons.config['global_conf']['smtp_ssl']
         self.auth = None
+
+	if not self.port:
+		self.port = 25
 
         # Look whether auth is required.
         if 'smtp_username' in pylons.config['global_conf'] and 'smtp_password' in pylons.config['global_conf']:
@@ -147,12 +151,12 @@ class Email(object):
 
         pylons.url._pop_object()
 
-	if self.port:
-        	log.debug('Starting SMTP session to %s:%s' % (self.server, self.port))
+	if self.ssl:
+        	log.debug('Starting SMTP_SSL session to %s:%s' % (self.server, self.port))
         	session = smtplib.SMTP_SSL(self.server, self.port)
 	else:
-        	log.debug('Starting SMTP session to %s' % self.server)
-        	session = smtplib.SMTP(self.server)
+        	log.debug('Starting SMTP session to %s:%s' % (self.server, self.port))
+        	session = smtplib.SMTP(self.server, self.port)
 
         if self.auth:
             log.debug('Authentication requested; logging in')
